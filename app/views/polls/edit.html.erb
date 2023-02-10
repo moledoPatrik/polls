@@ -1,9 +1,6 @@
 <div class="container">
   <h1>Edit poll:</h1>
   <h2> <%= @poll.title %></h2>
-  <%= simple_form_for @poll do |f| %>
-    <%= f.input :title %>
-    <%= f.submit %>
-  <% end %>
+  <%= render 'form' %>
   <%= link_to 'Home', root_path %>
 </div>

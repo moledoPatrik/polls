@@ -1,8 +1,5 @@
 <div class="container">
   <h1>New Poll</h1>
-  <%= simple_form_for @poll do |f| %>
-    <%= f.input :title %>
-    <%= f.submit class: 'mt-2' %>
-  <% end %>
+  <%= render 'form' %>
   <%= link_to 'Home', root_path %>
 </div>

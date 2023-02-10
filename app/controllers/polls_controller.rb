@@ -1,10 +1,11 @@
 class PollsController < ApplicationController
+  before_action :set_poll, only: %i[show edit update destroy]
+
   def index
     @polls = Poll.all
   end
 
   def show
-    @poll = Poll.find(params[:id])
   end
 
   def new
@@ -21,11 +22,9 @@ class PollsController < ApplicationController
   end
 
   def edit
-    @poll = Poll.find(params[:id])
   end
 
   def update
-    @poll = Poll.find(params[:id])
     if @poll.update(poll_params)
       redirect_to poll_path(@poll)
     else
@@ -34,7 +33,6 @@ class PollsController < ApplicationController
   end
 
   def destroy
-    @poll = Poll.find(params[:id])
     @poll.destroy
     redirect_to polls_path, status: :see_other
   end
@@ -43,5 +41,9 @@ class PollsController < ApplicationController
 
   def poll_params
     params.require(:poll).permit(:title)
+  end
+
+  def set_poll
+    @poll = Poll.find(params[:id])
   end
 end
