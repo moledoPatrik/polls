@@ -1,6 +1,11 @@
 <div class="container">
   <h1>Polls</h1>
-  <% @polls.each do |poll| %>
-    <%= link_to poll.title, poll_path(poll) %>
-  <% end %>
+  <ul>
+    <% @polls.each do |poll| %>
+      <li>
+        <%= link_to poll.title, poll_path(poll) %>
+      </li>
+    <% end %>
+  </ul>
+  <%= link_to 'Create poll', new_poll_path %>
 </div>
