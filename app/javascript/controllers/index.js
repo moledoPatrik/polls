@@ -4,8 +4,5 @@
 
 import { application } from "./application"
 
-import FlashAlertController from "./flash_alert_controller"
-application.register("flash-alert", FlashAlertController)
-
 import HelloController from "./hello_controller"
 application.register("hello", HelloController)

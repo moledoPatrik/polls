@@ -2,10 +2,11 @@ class PollsController < ApplicationController
   before_action :set_poll, only: %i[show edit update destroy]
 
   def index
-    @polls = Poll.where(is_valid: true)
+    @polls = Poll.all
   end
 
   def show
+    @poll_option = PollOption.new
   end
 
   def new
@@ -14,7 +15,8 @@ class PollsController < ApplicationController
 
   def create
     @poll = Poll.new(poll_params)
-    @poll.is_valid = false
+    @poll.started = false
+    @poll.user = current_user
     if @poll.save
       redirect_to poll_path(@poll)
     else
@@ -36,6 +38,13 @@ class PollsController < ApplicationController
   def destroy
     @poll.destroy
     redirect_to polls_path, status: :see_other
+  end
+
+  def start_poll
+    @poll = Poll.find(params[:id])
+    @poll.start!
+    @poll.save
+    redirect_to poll_path(@poll)
   end
 
   private

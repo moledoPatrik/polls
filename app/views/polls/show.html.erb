@@ -1,6 +1,9 @@
 <div class="container">
-  <h1><%= @poll.title %></h1>
-  <% if @poll.is_valid %>
+  <%= link_to 'Home', root_path, class: 'me-2'%>
+  <%= link_to 'Edit', edit_poll_path(@poll), class: 'me-2'  %>
+  <%= link_to 'Delete poll', poll_path(@poll), data: { turbo_method: :delete, turbo_confirm: 'Are you sure' }, class: 'me-2' %>
+  <% if @poll.started %>
+    <h1><%= @poll.title %></h1>
     <ul>
       <% @poll.poll_options.each do |option| %>
         <li>
@@ -9,9 +12,28 @@
       <% end %>
     </ul>
   <% else %>
-    <p>Hi</p>
+    <div class="d-flex justify-content-around">
+      <section>
+        <h1><%= @poll.title %></h1>
+        <% @poll.poll_options.each do |poll_option| %>
+          <p>
+            <%= link_to [@poll, poll_option], data: { turbo_method: :delete }, style: 'text-decoration: none; color: red;' do %>
+              <i class="fa-solid fa-x me-2"></i>
+            <% end %>
+            <%= poll_option.description %>
+          </p>
+        <% end %>
+        <%= simple_form_for @poll, url: start_poll_poll_path(@poll) do |f| %>
+          <%= f.submit 'Start Poll' %>
+        <% end %>
+      </section>
+      <section>
+        <h2>Add voting options</h2>
+        <%= simple_form_for [@poll, @poll_option] do |f| %>
+          <%= f.input :description, label: 'Add option to vote:' %>
+          <%= f.submit %>
+        <% end %>
+      </section>
+    </div>
   <% end %>
-  <%= link_to 'Home', root_path %>
-  <%= link_to 'Edit', edit_poll_path(@poll)  %>
-  <%= link_to 'Delete poll', poll_path(@poll), data: { turbo_method: :delete, turbo_confirm: 'Are you sure' } %>
 </div>

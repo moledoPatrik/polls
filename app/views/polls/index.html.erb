@@ -1,11 +1,24 @@
 <div class="container">
   <h1>Polls</h1>
-  <ul>
-    <% @polls.each do |poll| %>
-      <li>
-        <%= link_to poll.title, poll_path(poll) %>
-      </li>
-    <% end %>
-  </ul>
+  <section class="polls-all">
+    <h2>All polls</h2>
+    <ul>
+      <% @polls.select { |poll| poll.started }.each do |poll| %>
+        <li>
+          <%= link_to poll.title, poll_path(poll) %>
+        </li>
+      <% end %>
+    </ul>
+  </section>
+  <section class="polls-mine">
+    <h2>Your polls</h2>
+    <ul>
+      <% @polls.select { |poll| poll.user == current_user}.each do |poll| %>
+        <li>
+          <%= link_to poll.title, poll_path(poll) %>
+        </li>
+      <% end %>
+    </ul>
+  </section>
   <%= link_to 'Create poll', new_poll_path %>
 </div>

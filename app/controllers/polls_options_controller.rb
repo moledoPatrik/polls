@@ -1,2 +1,0 @@
-class PollsOptionsController < ApplicationController
-end
