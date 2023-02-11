@@ -1,0 +1,23 @@
+.custom-navbar {
+  background-color: #5d737e;
+  color: #fcfffd;
+  padding: 16px;
+  font-family: 'Raleway', sans-serif;
+  font-size: 16px;
+
+  .custom-navbar-logo {
+    font-size: 24px;
+    font-weight: bold;
+  }
+
+  a {
+    text-decoration: none;
+    color: #fcfffd;
+    transition: 0.25s;
+
+    &:hover {
+      color: #64b6ac;
+    }
+  }
+
+}
