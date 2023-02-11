@@ -2,7 +2,7 @@ class PollsController < ApplicationController
   before_action :set_poll, only: %i[show edit update destroy]
 
   def index
-    @polls = Poll.all
+    @polls = Poll.where(is_valid: true)
   end
 
   def show
@@ -14,6 +14,7 @@ class PollsController < ApplicationController
 
   def create
     @poll = Poll.new(poll_params)
+    @poll.is_valid = false
     if @poll.save
       redirect_to poll_path(@poll)
     else

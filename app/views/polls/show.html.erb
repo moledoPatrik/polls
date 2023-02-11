@@ -1,12 +1,16 @@
 <div class="container">
   <h1><%= @poll.title %></h1>
-  <ul>
-    <% @poll.poll_options.each do |option| %>
-      <li>
-        <%= link_to option.description, '#' %>
-      </li>
-    <% end %>
-  </ul>
+  <% if @poll.is_valid %>
+    <ul>
+      <% @poll.poll_options.each do |option| %>
+        <li>
+          <%= link_to option.description, '#' %>
+        </li>
+      <% end %>
+    </ul>
+  <% else %>
+    <p>Hi</p>
+  <% end %>
   <%= link_to 'Home', root_path %>
   <%= link_to 'Edit', edit_poll_path(@poll)  %>
   <%= link_to 'Delete poll', poll_path(@poll), data: { turbo_method: :delete, turbo_confirm: 'Are you sure' } %>
